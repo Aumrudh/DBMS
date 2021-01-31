@@ -1,0 +1,27 @@
+ CREATE OR REPLACE FUNCTION dispsame ( acity IN VARCHAR2) RETURN INTEGER
+  IS
+  mn   VARCHAR2(20);
+  cou INTEGER;
+  cursor name is  select * from employee natural join works join company on company.city=acity;
+  BEGIN
+  cou:=0;
+  for i in name
+  loop
+  select DISTINCT MNAME into mn  from manages where ename=i.ename;
+  cou:=cou+1;
+  DBMS_OUTPUT.put_line('EMPLOYEE NAME    ' ||i.ename||'    MANAGER NAME   '||mn||'   SALARY  '||i.salary);
+  end loop;
+  RETURN 3;
+  END;
+/
+
+
+
+ DECLARE
+    X INTEGER;
+    BEGIN
+    X:= dispsame ('CHENNAI');
+    DBMS_OUTPUT.put_line(' No of employees : '||X);
+    END;
+/
+ 

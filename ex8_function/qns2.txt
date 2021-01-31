@@ -1,0 +1,34 @@
+	create or replace function minmax ( m1 IN VARCHAR2,m2 IN VARCHAR2) RETURN VARCHAR
+	is
+	co varchar(10);
+	minemp varchar(20);
+	maxemp varchar(20);
+
+
+	begin
+	select cname into co from works where salary=(select min(salary) from works);
+	select ename  into maxemp from works where salary in (select max(salary)from works group by cname having cname=co);
+	select ename into   minemp from works where salary in (select min(salary)from works group by cname having cname=co);
+
+	DBMS_OUTPUT.put_line ( 'COMPANY NAME   '||  co );
+	DBMS_OUTPUT.put_line ( 'EMPLOYE FOR max SALARY   '||  maxemp);
+	DBMS_OUTPUT.put_line ( 'EMPLOYE FOR MIN SALARY   '||  minemp);
+
+	update manages set mname=m1 where ename=maxemp;
+	update manages set mname=m2 where ename=minemp;
+
+	return co;
+	end minmax;
+	/
+
+
+
+
+	declare
+	answer varchar(20);
+	 
+	begin
+	answer:=minmax('mani','kandan');
+	   dbms_output.put_line( answer);  
+	end;
+	/

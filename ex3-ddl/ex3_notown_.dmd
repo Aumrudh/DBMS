@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="ex3_notown_" id="4C4BF3D6-CA58-EE24-4C16-5A02653816A8" version="3.5">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:15:02 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>4C4BF3D6-CA58-EE24-4C16-5A02653816A8</designId>
+</OSDM_Design>

@@ -1,0 +1,309 @@
+SQL> CREATE TABLE EMPLOYEE(
+    ENAME VARCHAR2(20),
+    STREET VARCHAR(20),
+    CITY  VARCHAR(20),
+    CONSTRAINT EMP_KEY
+    PRIMARY KEY (ENAME));
+
+Table created.
+
+SQL> CREATE TABLE COMPANY(
+    CNAME VARCHAR2(20),
+    CITY VARCHAR2(20),
+    CONSTRAINT COMP_KEY
+    PRIMARY KEY (CNAME));
+
+Table created.
+
+SQL> CREATE TABLE WORKS(
+    ENAME VARCHAR2(20),
+    CNAME VARCHAR2(20),
+    SALARY INTEGER,
+    CONSTRAINT WORKS_KEY
+    FOREIGN KEY (ENAME) REFERENCES EMPLOYEE(ENAME),
+    FOREIGN KEY (CNAME) REFERENCES COMPANY(CNAME));
+
+Table created.
+
+SQL> CREATE TABLE MANAGES(
+    ENAME VARCHAR2(20),
+    MNAME VARCHAR2(20),
+    CONSTRAINT MANAGES_KEY
+    FOREIGN KEY (ENAME) REFERENCES EMPLOYEE(ENAME));
+
+Table created.
+
+SQL> INSERT INTO EMPLOYEE VALUES('RAJ','KAMARAJAR STREET','CHENNAI');
+
+1 row created.
+
+SQL> INSERT INTO COMPANY VALUES('MICROSOFT','CHENNAI');
+
+1 row created.
+
+SQL> INSERT INTO WORKS VALUES('LAL','VISA',100000);
+
+1 row created.
+
+SQL> INSERT INTO MANAGES VALUES('LAL','KUMAR');
+
+1 row created.
+
+
+
+SQL> set serveroutput on;
+SQL> CREATE OR REPLACE PROCEDURE PRO1 AS
+  2  FINISHED INTEGER DEFAULT 0;
+  3  NAME1 VARCHAR(20);
+  4  CITY1 VARCHAR(20);
+  5      C INTEGER DEFAULT 0;
+  6  CURSOR CUR1 IS
+  7      SELECT ENAME FROM EMPLOYEE E NATURAL JOIN COMPANY C  NATURAL JOIN WORKS;
+  8  BEGIN
+  9  FOR NAME1 IN CUR1
+ 10  LOOP
+ 11  DBMS_OUTPUT.PUT_LINE(NAME1.ENAME);
+ 12  SELECT CITY INTO CITY1 FROM EMPLOYEE WHERE ENAME=NAME1.ENAME;
+ 13  IF CITY1='CHENNAI' THEN
+ 14  C:=C+1;
+ 15  END IF;
+ 16  END LOOP;
+ 17
+ 18      IF C>10 THEN
+ 19    FOR NAME1 IN CUR1
+ 20      LOOP
+ 21      UPDATE EMPLOYEE SET CITY='cHENNAI' WHERE ENAME=NAME1.ENAME;
+ 22      END LOOP;
+ 23  END IF;
+ 24  END;
+ 25  /
+
+Procedure created.
+
+SQL>
+SQL>
+SQL> BEGIN
+  2  PRO1();
+  3  END;
+  4  /
+RAJU
+RAJ
+RAM
+RAM
+LAL
+KUMAR
+SAM
+RAJU
+VINOD
+SURESH
+RAM
+KAMAL
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from employee;
+
+ENAME                STREET               CITY
+-------------------- -------------------- --------------------
+RAJ                  KAMARAJAR STREET     cHENNAI
+RAM                  VALLUVAR STREET      cHENNAI
+LAL                  MAHAL STREET         cHENNAI
+KUMAR                SHA STREET           cHENNAI
+KAMAL                BHARATHI STREET      cHENNAI
+RAJU                 MAHAVER STREET       cHENNAI
+SAM                  MAHAVER STREET       cHENNAI
+VINOD                MAHAVER STREET       cHENNAI
+VIMAL                MAHAVER STREET       CHENNAI
+SURESH               MAHAVER STREET       cHENNAI
+
+10 rows selected.
+
+SQL> set serveroutput on;
+SQL> CREATE OR REPLACE PROCEDURE PRO2(COMP_NAME IN VARCHAR2) IS
+  2  AVGSAL NUMERIC;
+  3  FINISHED INTEGER DEFAULT 0;
+  4
+  5  CURSOR CUR1 IS SELECT ENAME FROM WORKS WHERE SALARY>=AVGSAL+10000;
+  6  BEGIN
+  7  SELECT AVG(SALARY) INTO AVGSAL FROM WORKS W2 WHERE W2.CNAME=COMP_NAME;
+  8  FOR NAME1 IN CUR1
+  9  LOOP
+ 10  DBMS_OUTPUT.PUT_LINE(NAME1.ENAME);
+ 11      UPDATE WORKS SET SALARY=SALARY+5000 WHERE ENAME=NAME1.ENAME;
+ 12  END LOOP;
+ 13
+ 14  END;
+ 15  /
+
+Procedure created.
+
+SQL>
+SQL> BEGIN
+  2  PRO2('HCL');
+  3  END;
+  4  /
+RAM
+RAM
+LAL
+
+PL/SQL procedure successfully completed.
+
+
+SQL> create or replace function minmax ( m1 IN VARCHAR2,m2 IN VARCHAR2) RETURN VARCHAR
+  2  is
+  3  co varchar(10);
+  4  minemp varchar(20);
+  5  maxemp varchar(20);
+  6
+  7
+  8  begin
+  9  select cname into co from works where salary=
+  (select min(salary) from works);
+ 10  select ename  into maxemp from works where salary in 
+ (select max(salary)from works group by cname having cname=co);
+ 11  select ename into   minemp from works where salary
+  in (select min(salary)from works group by cname having cname=co);
+ 12
+ 13  DBMS_OUTPUT.put_line ( 'COMPANY NAME   '||  co );
+ 14  DBMS_OUTPUT.put_line ( 'EMPLOYE FOR max SALARY   '||  maxemp);
+ 15  DBMS_OUTPUT.put_line ( 'EMPLOYE FOR MIN SALARY   '||  minemp);
+ 16
+ 17  update manages set mname=m1 where ename=maxemp;
+ 18  update manages set mname=m2 where ename=minemp;
+ 19
+ 20  return co;
+ 21  end minmax;
+ 22  /
+
+Function created.
+
+SQL>
+SQL>
+SQL>
+SQL>
+SQL> declare
+  2  answer varchar(20);
+  3
+  4  begin
+  5  answer:=minmax('mani','kandan');
+  6     dbms_output.put_line( answer);
+  7  end;
+  8  /
+COMPANY NAME   CTS
+EMPLOYE FOR max SALARY   SURESH
+EMPLOYE FOR MIN SALARY   VINOD
+CTS
+
+PL/SQL procedure successfully completed.
+
+
+SQL>   CREATE OR REPLACE FUNCTION FUN2(CITY1 IN VARCHAR2,NUM OUT INTEGER) RETURN FLOAT AS
+  2      CURSOR C1 IS
+  3      SELECT ENAME,CNAME FROM WORKS WHERE CNAME IN 
+  (SELECT CNAME FROM COMPANY WHERE CITY=CITY1);
+  4      CURSOR C2 IS
+  5      SELECT ENAME,MNAME FROM MANAGES WHERE ENAME 
+  IN(SELECT ENAME FROM WORKS WHERE CNAME IN 
+  (SELECT CNAME FROM COMPANY WHERE CITY=CITY1));
+  6      CURSOR C3 IS
+  7      SELECT ENAME,SALARY FROM WORKS WHERE CNAME 
+  IN (SELECT CNAME FROM COMPANY WHERE CITY=CITY1);
+  8      VAL INTEGER:=0;
+  9      COUNTER INTEGER:=0;
+ 10     COUNT1 INTEGER:=0;
+ 11     BEGIN
+ 12     FOR A IN C3
+ 13     LOOP
+ 14     DBMS_OUTPUT.PUT_LINE(A.ENAME||' : '||A.SALARY);
+ 15     COUNTER:=COUNTER+1;
+ 16     EXIT WHEN C3%NOTFOUND;
+ 17     END LOOP;
+ 18     DBMS_OUTPUT.PUT_LINE('MANAGERS');
+ 19     FOR B IN C2
+ 20     LOOP
+ 21     DBMS_OUTPUT.PUT_LINE(B.MNAME);
+ 22     EXIT WHEN C2%NOTFOUND;
+ 23     END LOOP;
+ 24     SELECT SUM(SALARY) INTO VAL FROM WORKS WHERE CNAME 
+ IN (SELECT CNAME FROM COMPANY WHERE CITY=CITY1) ;
+ 25     NUM:=COUNTER;
+ 26     RETURN VAL;
+ 27     END FUN2;
+ 28     /
+
+Function created.
+
+SQL>  SET SERVEROUTPUT ON;
+SQL>  DECLARE
+  2      A INTEGER:=0;
+  3      B VARCHAR2(25):='CHENNAI';
+  4      C INTEGER:=0;
+  5      BEGIN
+  6      C:=FUN2(B,A);
+  7      DBMS_OUTPUT.PUT_LINE('NO OF EMPLOYEES : '||A);
+  8      DBMS_OUTPUT.PUT_LINE('PAYROLL : '||C);
+  9      END;
+ 10     /
+SURESH : 65000
+VINOD : 25000
+RAM : 115000
+RAM : 90000
+RAJ : 100000
+RAJU : 45000
+RAJU : 100000
+SAM : 30000
+KUMAR : 100000
+LAL : 115000
+KAMAL : 70000
+RAM : 115000
+MANAGERS
+mani
+mani
+mani
+kandan
+LAL
+VINOD
+RAM
+KAMAL
+RAM
+KUMAR
+VIMAL
+NO OF EMPLOYEES : 12
+PAYROLL : 970000
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on;
+SQL> CREATE OR REPLACE FUNCTION sameset(PAR IN VARCHAR2) RETURN VARCHAR2
+  2      IS
+  3    C_NAME varchar2(10);
+  4      M_NAME  varchar2(10);
+  5      C_CITY varchar2(10);
+  6      E_CITY varchar2(10);
+  7      BEGIN
+  8      SELECT CNAME INTO C_NAME FROM WORKS GROUP BY CNAME HAVING COUNT(ENAME)>1;
+  9      SELECT DISTINCT MNAME INTO M_NAME FROM MANAGES
+   WHERE MNAME IN (SELECT ENAME FROM WORKS WHERE CNAME=C_NAME);
+ 10     SELECT CITY INTO C_CITY FROM COMPANY WHERE CNAME=C_NAME;
+ 11  SELECT CITY INTO E_CITY FROM EMPLOYEE WHERE ENAME=M_NAME;
+ 12    IF C_CITY = E_CITY THEN
+ 13		UPDATE EMPLOYEE SET CITY = 'mdu' WHERE ENAME=M_NAME;
+ 14     RETURN 'TRUE';
+ 15    ELSE
+ 16    RETURN 'FALSE';
+ 17    END IF;
+ 18    END;
+ 19    /
+
+Function created.
+
+SQL>    DECLARE
+  2      an varchar2(10);
+  3     begin
+  4      an:=sameset('mdu');
+  5      dbms_output.put_line('answer : '||an);
+  6     end;
+  7     /
+answer : FALSE
+
+PL/SQL procedure successfully completed.

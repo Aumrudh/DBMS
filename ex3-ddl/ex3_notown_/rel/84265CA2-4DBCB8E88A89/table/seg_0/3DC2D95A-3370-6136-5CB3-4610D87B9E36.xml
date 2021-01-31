@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3DC2D95A-3370-6136-5CB3-4610D87B9E36" name="SONG">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>0E20F950-6BEC-A338-B6BB-8ECCF2CA60F9</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="titile" id="9CF1F0D3-1E99-C158-6103-1015E609E08E">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>E5BD289B-F3E8-D7CA-19D2-D478EFB715F7</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="author" id="66C08EE8-8DCC-CFC7-0362-1E1A3DF62AFB">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>43994D93-9A00-1787-2489-CFFB1AD56B71</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ALBUM_album_identifier" id="9CE0E065-C9A2-2711-B6F6-58ABEEC70389">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>9905BABC-3154-8B84-24F9-B3032DC8068C</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="AF4D0A7E-9F1F-7C4A-FC40-54B1E6A32675" referredColumn="7A2F434F-5069-4101-2E61-B1CAB8F60576"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="418C972E-E762-7089-FC59-4E2FF43AC644" name="SONG_PK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>C83588B6-7C5C-6862-A54A-E22DDD67B8DE</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9CF1F0D3-1E99-C158-6103-1015E609E08E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2AB04207-A32E-AE90-DB8F-8ECCE4F7EC71" name="SONG_ALBUM_FK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>02163230-3766-A287-4E2A-B58972C66934</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9CE0E065-C9A2-2711-B6F6-58ABEEC70389"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

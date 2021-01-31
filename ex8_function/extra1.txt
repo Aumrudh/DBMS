@@ -1,0 +1,32 @@
+
+
+   CREATE OR REPLACE FUNCTION q4 ( p_name IN VARCHAR2,x out INT) RETURN INT
+      IS
+      man   VARCHAR(20);
+      cursor name is  select * from employee natural join works  natural join company where company.city=p_name;
+    
+      BEGIN
+      x:=0;
+      --select count(name) into x from employee natural join works natural join company where company.city=p_name;
+      for name1 in name
+     loop
+     select MNAME into man  from manages where ename=name1.ename;
+     x:=x+1;
+     DBMS_OUTPUT.put_line('EMPLOYEE NAME    ' ||name1.ename||'    MANAGER NAME   '||man||'      SALARY  '||name1.salary);
+     end loop;
+     RETURN 10;
+     END;
+     /
+   
+
+
+
+
+
+   DECLARE
+    x INT;
+    y INT:=0;
+    BEGIN
+    x:= q4 ('chennai',y);
+    dbms_output.put_line(x||' No of employees   '|| );
+    END;

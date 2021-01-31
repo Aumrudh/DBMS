@@ -1,0 +1,348 @@
+
+//Query By Aumrudh LaL Kumar TJ
+//EX7- Views and INDEX
+
+SQL> CREATE TABLE SALESMEN(
+  2  SID INTEGER,
+  3  SNAME VARCHAR2(20),
+  4  SCITY VARCHAR2(20),
+  5  COMMISION NUMBER(4,2),
+  6  CONSTRAINT SALEMAN_KEY
+  7  PRIMARY KEY (SID));
+
+Table created.
+
+SQL> CREATE TABLE CUSTOMER(
+    CID INTEGER,
+    CNAME VARCHAR2(20),
+    CCITY VARCHAR2(20),
+    GRADE INTEGER,
+    SID INTEGER,
+    CONSTRAINT CUSTOMER_KEY
+    PRIMARY KEY(CID),
+    FOREIGN KEY(SID) REFERENCES SALESMEN(SID));
+
+Table created.
+
+SQL>CREATE TABLE ORDERS(
+    ODNO INTEGER,
+    PAMT INTEGER,
+    ODDATE DATE,
+    CID INTEGER,
+    SID INTEGER,
+    CONSTRAINT ORDER_KEY
+    FOREIGN KEY(CID) REFERENCES CUSTOMER(CID),
+    FOREIGN KEY(SID) REFERENCES SALESMEN(SID));
+
+Table created.
+
+SQL> INSERT INTO SALESMEN VALUES(1,'ABAS','VNR',0.8);
+
+1 row created.
+
+SQL> INSERT INTO CUSTOMER VALUES(1,'RAJ','MUMBAI',50,2);
+
+1 row created.
+
+SQL> INSERT INTO ORDERS VALUES(5,1000,'23-JAN-2020',7,7);
+
+1 row created.
+
+SQL> SELECT * FROM CUSTOMER;
+
+       CID CNAME                CCITY                     GRADE        SID
+---------- -------------------- -------------------- ---------- ----------
+         1 RAJ                  MUMBAI                       50          2
+         2 RAM                  MUMBAI                       20          1
+         3 SAM                  KOLKATA                      15          2
+         4 LAL                  KOLKATA                      25          4
+         7 KUMAR                MUMBAI                       45          7
+
+SQL> SELECT * FROM SALESMEN;
+
+       SID SNAME                SCITY                 COMMISION
+---------- -------------------- -------------------- ----------
+         1 ABAS                 VNR                          .8
+         2 bob                  chennai                      .4
+         3 chand                chennai                      .5
+         4 dAVID                MUMBAI                      .79
+         5 EVA                  KOLKATA                     .55
+         6 FASIL                KOLKATA                     .85
+         7 AUMRUDHL             BANGALORE                   .98
+
+7 rows selected.
+
+SQL> SELECT * FROM ORDERS;
+
+      ODNO       PAMT ODDATE           CID        SID
+---------- ---------- --------- ---------- ----------
+         1        500 20-JAN-20          1          2
+         2        800 20-JAN-20          2          2
+         1        400 21-JAN-20          1          2
+         1        700 24-JAN-20          4          7
+         5       1000 23-JAN-20          7          7
+         7       1500 23-JAN-20          7          4
+         6       1400 23-JAN-20          3          4
+         9        230 26-JAN-20          4          2
+        10       3000 26-JAN-20          7          7
+        10       3000 26-JAN-20          7          4
+
+
+//QUERIES
+
+1.
+
+SQL> CREATE VIEW MUMSALE AS (SELECT * FROM SALESMEN WHERE SCITY='MUMBAI');
+
+View created.
+
+SQL> SELECT * FROM MUMSALE;
+
+       SID SNAME                SCITY                 COMMISION
+---------- -------------------- -------------------- ----------
+         4 dAVID                MUMBAI                      .79
+
+2.
+
+SQL> SELECT * FROM SALES;
+
+       SID SNAME                SCITY
+---------- -------------------- --------------------
+         1 ABAS                 VNR
+         2 bob                  chennai
+         3 chand                chennai
+         4 dAVID                MUMBAI
+         5 EVA                  KOLKATA
+         6 FASIL                KOLKATA
+         7 AUMRUDHL             BANGALORE
+
+7 rows selected.
+
+SQL> SELECT SID FROM SALESMEN WHERE SCITY='KOLKATA' AND COMMISION>0.13;
+
+       SID
+----------
+         5
+         6
+
+3)
+
+SQL> INSERT INTO SALES VALUES(22,'RAMU','MADURAI');
+
+1 row created.
+
+SQL> INSERT INTO SALES VALUES(24,'SHAM','MADURAI');
+
+1 row created.
+
+SQL> SELECT * FROM SALES;
+
+       SID SNAME                SCITY
+---------- -------------------- --------------------
+         1 ABAS                 VNR
+         2 bob                  chennai
+         3 chand                chennai
+         4 dAVID                MUMBAI
+         5 EVA                  KOLKATA
+         6 FASIL                KOLKATA
+         7 AUMRUDHL             BANGALORE
+        22 RAMU                 MADURAI
+        24 SHAM                 MADURAI
+
+9 rows selected.
+
+4.
+
+SQL> CREATE VIEW CGRADE(GRADE,COUNT) AS SELECT GRADE,COUNT(grade)
+ FROM CUSTOMER GROUP BY GRADE;
+
+View created.
+
+SQL> SELECT * FROM CGRADE;
+
+     GRADE      COUNT
+---------- ----------
+        25          1
+        20          1
+        50          1
+        45          1
+        15          1
+
+10 rows selected.
+
+5.
+SQL> CREATE VIEW DAY(ODNO,COUNT,AVF,SUM) AS 
+(SELECT ODNO,COUNT(CID),AVG(PAMT),SUM(PAMT) 
+FROM ORDERS GROUP BY ODNO);
+
+View created.
+
+SQL> SELECT * FROM DAY;
+
+      ODNO      COUNT        AVF        SUM
+---------- ---------- ---------- ----------
+         1          3 533.333333       1600
+         6          1       1400       1400
+         2          1        800        800
+         5          1       1000       1000
+         7          1       1500       1500
+         9          1        230        230
+        10          2       3000       6000
+
+7 rows selected.
+
+6.
+
+SQL> CREATE VIEW ORDERSALES AS
+ (SELECT * FROM 
+  ORDERS O NATURAL JOIN CUSTOMER C NATURAL JOIN SALES S );
+
+View created.
+
+SQL> SELECT * FROM ORDERSALES;
+
+       SID        CID       ODNO       PAMT ODDATE    CNAME
+---------- ---------- ---------- ---------- --------- --------------------
+CCITY                     GRADE SNAME                SCITY
+-------------------- ---------- -------------------- --------------------
+         2          1          1        500 20-JAN-20 RAJ
+MUMBAI                       50 bob                  chennai
+
+         2          1          1        400 21-JAN-20 RAJ
+MUMBAI                       50 bob                  chennai
+
+         7          7          5       1000 23-JAN-20 KUMAR
+MUMBAI                       45 AUMRUDHL             BANGALORE
+
+
+         7          7         10       3000 26-JAN-20 KUMAR
+MUMBAI                       45 AUMRUDHL             BANGALORE
+
+
+7.
+
+SQL> CREATE VIEW MAXSALE AS SELECT O.ODNO ,S.SID ,S.SNAME FROM
+ SALESMEN S , ORDERS O WHERE O.SID=S.SID AND
+  O.PAMT=(SELECT MAX(PAMT) FROM 
+  ORDERS A WHERE A.ODDATE=O.ODDATE);
+
+View created.
+
+SQL> SELECT * FROM MAXSALE;
+
+      ODNO        SID SNAME
+---------- ---------- --------------------
+         2          2 bob
+         1          2 bob
+         1          7 AUMRUDHL
+         7          4 dAVID
+        10          7 AUMRUDHL
+        10          4 dAVID
+
+6 rows selected.
+
+8.
+
+CREATE VIEW THREEHIGHDAY AS SELECT DISTINCT(O.ODNO) ,S.SID ,S.SNAME FROM
+SALESMEN S , ORDERS O WHERE O.SID=S.SID AND
+O.PAMT IN (SELECT MAX(PAMT) FROM 
+ORDERS A WHERE A.ODDATE=O.ODDATE GROUP BY PAMT HAVING COUNT(*)>=3);
+
+SQL> SELECT * FROM THREEHIGHDAY;
+
+      ODNO        SID SNAME
+---------- ---------- --------------------
+         5          7 AUMRUDHL
+
+9.
+
+SQL> CREATE VIEW MAXGRADE AS SELECT * FROM CUSTOMER WHERE
+ GRADE=(SELECT MAX(GRADE) FROM CUSTOMER);
+
+View created.
+
+SQL> SELECT * FROM MAXGRADE;
+
+       CID CNAME                CCITY                     GRADE        SID
+---------- -------------------- -------------------- ---------- ----------
+         1 RAJ                  MUMBAI                       50          2
+
+10.
+
+SQL> CREATE VIEW NOORDER AS (SELECT * FROM CUSTOMER C 
+WHERE C.CID NOT IN (SELECT O.CID FROM ORDERS O));
+
+View created.
+
+SQL> SELECT T1-T2 FROM (SELECT COUNT(*) AS T1 FROM CUSTOMER C  )
+,(SELECT COUNT(*) AS T2 FROM ORDERS O);
+
+     T1-T2
+----------
+        -8
+
+SQL> SELECT * FROM THREEHIGHDAY;
+
+no rows selected
+
+11.
+
+SQL> CREATE VIEW SALAVG(NAME,AVG,SUM) AS 
+SELECT SNAME,AVG(PAMT),SUM(PAMT) FROM
+ SALESMEN NATURAL JOIN ORDERS GROUP BY SNAME;
+
+View created.
+
+SQL> SELECT * FROM SALAVG;
+
+NAME                        AVG        SUM
+-------------------- ---------- ----------
+dAVID                      1855       7420
+bob                         626       3130
+AUMRUDHL                   1440       7200
+
+12.
+
+SQL> CREATE VIEW MOCUS AS SELECT SID 
+FROM SALESMEN NATURAL JOIN CUSTOMER GROUP BY SID HAVING COUNT(*)>1;
+
+View created.
+
+SQL> SELECT * FROM MOCUS;
+
+       SID
+----------
+         2
+
+13.
+SQL> CREATE VIEW CUS AS SELECT CID FROM CUSTOMER C,SALESMEN S WHERE C.CCITY=S.SCITY;
+
+View created.
+
+SQL> SELECT * FROM CUS;
+
+       CID
+----------
+        24
+        55
+         7
+         2
+         1
+         4
+         3
+         4
+         3
+
+9 rows selected.
+
+14.
+
+SQL> CREATE INDEX OD_INDEX ON ORDERS(ODNO);
+
+Index created.
+
+15.
+
+SQL> DROP INDEX OD_INDEX;
+
+Index dropped.

@@ -1,0 +1,15 @@
+oracle
+Oracle20
+login command - sqlplus system as sysdba
+password - oracle
+
+
+new db name created
+sqlplus aumrudh as sysdba
+Jeyakumar28
+
+
+sqlplus 
+user - aumrudh
+pass - oracle
+

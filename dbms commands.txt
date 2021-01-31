@@ -1,0 +1,20 @@
+
+https://blogs.oracle.com/sql/how-to-create-users-grant-them-privileges-and-remove-them-in-oracle-database
+https://chartio.com/resources/tutorials/how-to-create-a-user-and-grant-permissions-in-oracle/
+
+this table is under SYS that required more privelege
+
+SYS is a special user, has some restrictions (like objects owned by SYS cannot be exported), but can alter any object in the database, including droping or alter some DB engine objects. That's why (and many other reasons) you should NEVER create user objects in SYS schema. Objects created in SYS schema has a different treatment, and that's why you couldn't drop the column (or constraint, but I've never tried this).
+
+I can say that the source of the problem was not the DROP TABLE syntax. The problem is that your objects where created in SYS schema ;). Oracle was designed to create and manipulate user objects within user's schemas. 
+
+so i created a new user and granted access 
+
+
+aumrudh is username
+password : oracle 
+
+> set linesize 150
+
+all table created will be under -= user_tables;
+

@@ -1,0 +1,244 @@
+//S.Sankara Narayanan
+
+SQL> CREATE OR REPLACE PROCEDURE PSAIL(ID IN INT) IS
+  2  SAILO VARCHAR(20);
+  3  SAILO1 VARCHAR(20);
+  4  AGEE INT;
+  5  CURSOR C1 IS SELECT SNAME FROM SAILORS NATURAL JOIN RESERVES
+  6  WHERE BID=ID;
+  7  CURSOR C2 IS SELECT SNAME FROM SAILORS NATURAL JOIN RESERVES
+  8  WHERE  RATING IN(
+  9  SELECT MAX(RATING) FROM SAILORS NATURAL JOIN RESERVES);
+ 10  BEGIN
+ 11  DBMS_OUTPUT.PUT_LINE('Sailor name:');
+ 12  FOR N IN C1 LOOP
+ 13  DBMS_OUTPUT.PUT_LINE(N.SNAME);
+ 14  END LOOP;
+ 15  DBMS_OUTPUT.PUT_LINE('Highest among them:');
+ 16  FOR N1 IN C2 LOOP
+ 17  DBMS_OUTPUT.PUT_LINE(N1.SNAME);
+ 18  END LOOP;
+ 19  SELECT AVG(AGE) INTO AGEE FROM SAILORS NATURAL JOIN RESERVES
+ 20  WHERE  RATING IN(
+ 21  SELECT MAX(RATING) FROM SAILORS NATURAL JOIN RESERVES);
+ 22  DBMS_OUTPUT.PUT_LINE('Average age:'||AGEE);
+ 23  END;
+ 24  /
+
+Procedure created.
+SQL>  SET SERVEROUTPUT ON;
+SQL>  BEGIN
+  2   PSAIL(200);
+  3   END;
+  4   /
+
+Sailor name:
+Arun
+Akash
+
+Highest among them:
+Arun
+Akash
+Akash
+Average age:20
+
+PL/SQL procedure successfully completed.
+
+2:
+SQL> CREATE OR REPLACE PROCEDURE PSAIL2(C1 IN VARCHAR2,C2 IN VARCHAR2,COLOR1 OUT VARCHAR2,COLOR2 OUT VARCHAR2) AS
+  2  DATA VARCHAR(20);
+  3  CURSOR NAME IS SELECT SNAME FROM SAILORS NATURAL JOIN BOATS NATURAL JOIN  RESERVES
+  4  WHERE COLOR IN(C1,C2);
+  5  BEGIN
+  6  DATA:='NO SUCH DATA FOUND';
+  7  COLOR1:=C1;
+  8  COLOR2:=C2;
+  9  DBMS_OUTPUT.PUT_LINE('Sailor Name:');
+ 10  FOR N IN NAME LOOP
+ 11  DBMS_OUTPUT.PUT_LINE(N.SNAME);
+ 12  END LOOP;
+ 13  EXCEPTION
+ 14  WHEN NO_DATA_FOUND THEN
+ 15  DBMS_OUTPUT.PUT_LINE(DATA);
+ 16  END;
+ 17  /
+
+Procedure created.
+
+SQL> SET SERVEROUTPUT ON;
+SQL> DECLARE
+  2  C1 VARCHAR(20);
+  3  C2 VARCHAR(20);
+  4  BEGIN
+  5  PSAIL2('Blue','Black',C1,C2);
+  6  DBMS_OUTPUT.PUT_LINE('Color 1:'||C1);
+  7  DBMS_OUTPUT.PUT_LINE('Color 2:'||C2);
+  8  END;
+  9  /
+
+Sailor Name:
+Arun
+Akash
+Akash
+Vimal
+Harish
+Jameson
+Color 1:Blue
+Color 2:Black
+
+PL/SQL procedure successfully completed.
+
+3:
+
+SQL> create or replace function no_of_boats
+  2  return varchar2 is
+  3  ss varchar(20);
+  4  boo varchar(20);
+  5  ssid int;
+  6  no_boats int;
+  7  begin
+  8  boo:='Falsee';
+  9  select s.sname into ss from sailors s
+ 10  where s.age=(select max(s2.age) from sailors s2);
+ 11  dbms_output.put_line('Oldest Sailor:'||ss);
+ 12  select s.sid into ssid from sailors s
+ 13  where s.age=(select max(s2.age) from sailors s2);
+ 14  select count(bid) into no_boats from reserves where sid=ssid;
+ 15  if(no_boats>1) then
+ 16  update sailors set rating=rating+10 where sid=ssid;
+ 17  boo:='Truee';
+ 18  return boo;
+ 19  else
+ 20  update sailors set rating=rating-15 where sid=ssid;
+ 21  return boo;
+ 22  end if;
+ 23  end;
+ 24  /
+
+Function created.
+
+SQL>  SET SERVEROUTPUT ON;
+SQL>  DECLARE
+  2   RES VARCHAR(20);
+  3  BEGIN
+  4  RES:=no_of_boats();
+  5  dbms_output.put_line(RES);
+  6  END;
+  7  /
+
+Oldest Sailor:Jameson
+Falsee
+
+PL/SQL procedure successfully completed.
+
+
+4:
+
+SQL> create or replace function sail(minage int)
+  2  return int as
+  3  sailo varchar(20);
+  4  boa varchar(20);
+  5  mage int;
+  6  ra int;
+  7  cursor saill is select distinct(sname) into sailo from sailors natural join boats natural join reserves where age>=18 ;
+  8  begin
+  9  dbms_output.put_line('Sailor Eligible to Vote');
+ 10  for n in saill loop
+ 11  dbms_output.put_line(n.sname);
+ 12  end loop;
+ 13  select min(age) into mage from sailors;
+ 14  return mage;
+ 15  end;
+ 16  /
+
+Function created.
+
+SQL> set serveroutput on;
+SQL> declare
+  2  co int;
+  3  begin
+  4  co:=sail(30);
+  5  dbms_output.put_line('Youngest Sailor age:'||co);
+  6  end;
+  7  /
+
+Sailor Eligible to Vote
+Vimal
+Akash
+Jannet
+Jameson
+Harish
+Arun
+Youngest Sailor age:16
+
+PL/SQL procedure successfully completed.
+
+5:
+
+SQL> create or replace function sailor_age
+  2  return int as
+  3  co int;
+  4  da varchar(20);
+  5  da1 varchar(20);
+  6  cursor agel is
+  7  select s.age from sailors s
+  8  where s.sid not in(select r.sid from reserves r);
+  9  begin
+ 10  da:=('Youngest sailor');
+ 11  da1:=('Experienced sailor');
+ 12  for ageless_rec in agel loop
+ 13  if(ageless_rec.age<25) then
+ 14  dbms_output.put_line(da);
+ 15  else
+ 16  dbms_output.put_line(da1);
+ 17  co:=1;
+ 18  end if;
+ 19  return co;
+ 20  end loop;
+ 21  end;
+ 22  /
+
+Function created.
+
+SQL>  SET SERVEROUTPUT ON;
+SQL>  DECLARE
+  2   res int;
+  3   begin
+  4   res:=sailor_age();
+  5   dbms_output.put_line(res);
+  6   end;
+  7   /
+
+Youngest sailor
+1
+
+PL/SQL procedure successfully completed.
+
+6:
+
+SQL> CREATE OR REPLACE PROCEDURE PSAIL3(SSID IN INTEGER,BBID IN INTEGER,SSNAME OUT VARCHAR2,BBNAME OUT VARCHAR2) AS
+  2  BEGIN
+  3  SELECT SNAME INTO SSNAME FROM SAILORS NATURAL JOIN RESERVES
+  4  WHERE SID=SSID;
+  5  SELECT COLOR INTO BBNAME FROM BOATS NATURAL JOIN RESERVES
+  6  WHERE  BID=BBID;
+  7  END;
+  8  /
+
+Procedure created.
+
+SQL>  SET SERVEROUTPUT ON;
+SQL>  DECLARE
+  2   SNAME VARCHAR(20);
+  3   BCOLOR VARCHAR(20);
+  4   BEGIN
+  5   PSAIL3(100,202,SNAME,BCOLOR);
+  6   DBMS_OUTPUT.PUT_LINE('Sailor Name:'||SNAME);
+  7   DBMS_OUTPUT.PUT_LINE('Boat Color:'||BCOLOR);
+  8   END;
+  9   /
+
+Sailor Name:Arun
+Boat Color:Red
+
+PL/SQL procedure successfully completed.

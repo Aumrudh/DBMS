@@ -1,0 +1,84 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C1D8618C-0D1D-AE41-005B-BE1D9B2EC527" name="MUSICIAN">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:15:39 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<engineerTo>
+<item key="84265CA2-59EA-0D53-D1FD-4DBCB8E88A89" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="SSN" id="E3305CBD-B210-34CC-290E-771FD5837BFC">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:15:50 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<engineerTo>
+<item key="84265CA2-59EA-0D53-D1FD-4DBCB8E88A89" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="name" id="579189D2-C52C-DD76-C3E7-987C76598B92">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:16:15 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<engineerTo>
+<item key="84265CA2-59EA-0D53-D1FD-4DBCB8E88A89" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="address" id="38D73F35-E983-0E1A-BBFC-466ACCC05BE4">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:16:33 UTC</createdTime>
+<comment>	</comment>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<engineerTo>
+<item key="84265CA2-59EA-0D53-D1FD-4DBCB8E88A89" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25 CHAR</dataTypeSize>
+<ownDataTypeParameters>25 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="phone_number" id="4CEF422B-8916-526F-5260-151EC4C546FB">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:16:56 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<engineerTo>
+<item key="84265CA2-59EA-0D53-D1FD-4DBCB8E88A89" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="6711112C-0C27-AB9B-9F45-5A6C666CBE27" name="MUSICIAN PK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:16:10 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<engineerTo>
+<item key="84265CA2-59EA-0D53-D1FD-4DBCB8E88A89" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>E3305CBD-B210-34CC-290E-771FD5837BFC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

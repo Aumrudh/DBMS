@@ -1,0 +1,24 @@
+ create or replace procedure pro2(c_name in company.cname%type)
+    is
+    asal number;
+    bonus int;
+    cursor name is  select ename,salary from employee natural join works natural join company where salary>asal and cname=c_name;
+    begin
+  
+    select avg(salary) into asal from employee natural join works natural join company where cname=c_name;
+  
+   for name1 in name
+   LOOP
+   DBMS_OUTPUT.put_line ( 'EMPLOYEE NAME   '||name1.ename||'   SALARY   '||name1.salary);
+   IF(name1.salary-asal>10000) THEN
+   update works set salary=salary+5000 where ename=name1.ename;
+   END IF;
+   EXIT WHEN name%NOTFOUND;
+   END LOOP;
+   END;
+   /
+
+  begin
+   pro2('CTS');
+   end;
+    /

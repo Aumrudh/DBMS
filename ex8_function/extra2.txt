@@ -1,0 +1,22 @@
+***********************************
+5)
+
+SQL> create or replace function q5(man VARCHAR2) RETURN VARCHAR2
+  2  IS
+  3  comname varchar(10);
+  4  mname varchar(10);
+  5  comcity varchar(10);
+  6  empcity varchar(10);
+  7  begin
+  8  select cname into comname from works group by cname having count(ename)>10;
+  9  select distinct manname into mname from manages where manname in(select ename from works where cname=comname);
+ 10  select ccity into comcity from company where cname=comname;
+ 11  select city into  empcity from employee where ename=mname;
+ 12  if comcity=empcity then
+ 13   update employee set city=man where ename=mname;
+ 14   RETURN 'TRUE';
+ 15  else
+ 16  RETURN 'false';
+ 17
+ 18  end if;
+ 19  end;

@@ -1,0 +1,76 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0495023A-A0D0-B120-7AFF-F095E302C0BD" name="plays">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:41 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="MUSICIAN_SSN" id="5EC89DFB-04C0-8982-5A0D-4200967D2508">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:41 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E9F9282B-1DDF-37DF-7DFB-E5842A7CC822" referredColumn="06AFCEA5-425A-4983-1D7F-ABFC524EEA2E"/>
+</associations>
+</Column>
+<Column name="INSTRUMENT_name" id="F688DD4D-38D9-4376-E5BC-3C197D57C487">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:41 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0CBEE7E3-699A-F7CF-949F-AE1EFAE3C210" referredColumn="F7873B53-25F8-97B6-0438-B2D2FB787035"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C408DEE9-2546-FEE2-BA79-B47EE46FD5D3" name="plays_PK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:41 UTC</createdTime>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5EC89DFB-04C0-8982-5A0D-4200967D2508"/>
+<colUsage columnID="F688DD4D-38D9-4376-E5BC-3C197D57C487"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="782C3D8E-7680-8A28-1A5B-DB1DF2186D61" name="plays_MUSICIAN_FK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:41 UTC</createdTime>
+<generatorID>2CDD764A-6BF7-5EB9-915B-0266337298E1</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5EC89DFB-04C0-8982-5A0D-4200967D2508"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="237BA0B1-43EB-72BD-995E-A36D86AFE8B2" name="plays_INSTRUMENT_FK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:41 UTC</createdTime>
+<generatorID>2CDD764A-6BF7-5EB9-915B-0266337298E1</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F688DD4D-38D9-4376-E5BC-3C197D57C487"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

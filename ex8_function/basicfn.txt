@@ -1,0 +1,25 @@
+fn declaration
+
+SQL> CREATE OR REPLACE FUNCTION CHEM
+  2  RETURN NUMBER IS
+  3  TOTAL NUMBER(2):=0;
+  4  BEGIN
+  5  SELECT COUNT(*) INTO TOTAL FROM PEMPLOYEE;
+  6  RETURN TOTAL;
+  7  END;
+  8  /
+
+Function created.
+
+
+
+fn call
+
+SQL> declare
+  2  ans integer;
+  3  begin
+  4  ans:=chem();
+  5  dbms_output.put_line('total'||ans);
+  6  end;
+  7  /
+

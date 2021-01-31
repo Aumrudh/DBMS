@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4957E371-975F-0880-BCD7-88F88F57301A" name="MUSICIAN">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>C1D8618C-0D1D-AE41-005B-BE1D9B2EC527</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SSN" id="06AFCEA5-425A-4983-1D7F-ABFC524EEA2E">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>E3305CBD-B210-34CC-290E-771FD5837BFC</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="name" id="A095F2C6-15AA-3F87-AB9E-0708A8D935B0">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>579189D2-C52C-DD76-C3E7-987C76598B92</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="address" id="81F16354-B179-6F89-19C9-F459C2C1BB4E">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<comment>	</comment>
+<generatorID>38D73F35-E983-0E1A-BBFC-466ACCC05BE4</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25 CHAR</dataTypeSize>
+<ownDataTypeParameters>25 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="phone_number" id="D4C72EC4-4988-747D-4B48-6EFAB161F3E0">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>4CEF422B-8916-526F-5260-151EC4C546FB</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="39A0C6B9-F50F-E68C-9F56-C37C94F5090C" name="MUSICIAN_PK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>6711112C-0C27-AB9B-9F45-5A6C666CBE27</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="06AFCEA5-425A-4983-1D7F-ABFC524EEA2E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

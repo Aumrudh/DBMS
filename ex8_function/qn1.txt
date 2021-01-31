@@ -1,0 +1,16 @@
+ create or replace procedure chennai_emp
+   is
+    cursor name is select distinct ename from employee  join company on employee.city=company.city and employee.city='CHENNAI';
+    begin
+    for name1 in name
+    loop
+    DBMS_OUTPUT.put_line ( name1.ename);`
+    update employee set city='MADURAI' where ename=name1.ename;
+    EXIT WHEN name%NOTFOUND;
+   END LOOP;
+   END;
+   /
+
+ begin chennai_emp();
+    end;
+    /

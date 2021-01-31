@@ -1,0 +1,97 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4B14EAB2-2878-5BB1-B159-D03B68B89A1F" name="ALBUM">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>C6CC5DCC-9578-7D22-8E69-39252A317BE6</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="album_identifier" id="7A2F434F-5069-4101-2E61-B1CAB8F60576">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>2BF10718-9C53-3290-E297-FDE58CD5340D</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="titile" id="2F7D4948-192B-8030-3147-19604062E85E">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>AD9AD745-D491-AF30-F5AC-68F84DF3DBB7</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="copyright_date" id="AC9229D6-8538-C6FD-D093-D6A6E53025E7">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>000BA754-A095-EEC6-E305-07BFC18B4958</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="format" id="C47B2A44-2937-D60B-0B77-708135FE63C3">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>ABFFA620-F7B6-BF9E-4123-08A6262BED1B</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MUSICIAN_SSN" id="B2140FE1-9AFF-A20D-B43A-C6072432C29D">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>14CEB7DB-9371-BEF6-1FCF-C15D7D57C368</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E4B5E730-687D-4D9F-70A4-1F45E07D48EC" referredColumn="06AFCEA5-425A-4983-1D7F-ABFC524EEA2E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6BDC8DCF-1562-FA62-2FFB-4542ACD36F23" name="ALBUM_PK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:40 UTC</createdTime>
+<generatorID>8E7D38BD-8AD3-1D8F-75FD-4E344262E9C6</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7A2F434F-5069-4101-2E61-B1CAB8F60576"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CC1BB754-66C2-F4A2-A809-A00099FACA5D" name="ALBUM_MUSICIAN_FK">
+<createdBy>Aumrudh</createdBy>
+<createdTime>2020-01-05 10:23:41 UTC</createdTime>
+<generatorID>8A46766F-A8CC-EAE4-39E4-95CACB115000</generatorID>
+<ownerDesignName>ex3_notown_</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B2140FE1-9AFF-A20D-B43A-C6072432C29D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
